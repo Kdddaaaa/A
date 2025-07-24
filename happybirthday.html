@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Amy!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes wobble {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg) translateY(-5px); }
+            50% { transform: rotate(5deg) translateY(5px); }
+            75% { transform: rotate(-5deg) translateY(-5px); }
+            100% { transform: rotate(0deg); }
+        }
+        @keyframes shine {
+            0% { text-shadow: 0 0 10px #87ceeb, 0 0 20px #87ceeb, 0 0 30px #87ceeb; }
+            50% { text-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff, 0 0 40px #ffffff; }
+            100% { text-shadow: 0 0 10px #87ceeb, 0 0 20px #87ceeb, 0 0 30px #87ceeb; }
+        }
+        .wobble { animation: wobble 2s ease-in-out infinite; }
+        .shine { animation: shine 1.5s ease-in-out infinite; }
+        @keyframes confetti {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
+            20% { transform: translateY(-60vh) rotate(144deg); opacity: 1; }
+            80% { transform: translateY(60vh) rotate(576deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #f00;
+            animation: confetti 1s ease-in-out infinite;
+            z-index: 10;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .fancy-button {
+            background: linear-gradient(45deg, #ffd700, #ffca28, #ffac33);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        .fancy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ffac33, #ffd700, #ffca28);
+        }
+        .fancy-button:active {
+            transform: 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        .fancy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ffac33, #ffd700, #ffca28);
+        }
+        .fancy-button:active {
+            transform: scale(0.95);
+        }
+        video {
+            border: 4px solid #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white;
+            opacity: 0.7;
+            animation: twinkle 1.5s infinite alternate;
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-yellow-100 via-blue-200 to-blue-600">
+    <div class="text-center pt-8">
+        <h1 class="text-6xl font-bold text-sky-400 drop-shadow-lg mb-6 wobble shine">Happy Birthday, Amy! 🎉</h1>
+        <p class="text-2xl text-white mb-8 font-semibold">Wishing you a day full of joy!</p>
+        
+        <div class="mb-8">
+            <img src="c.jpg" alt="Custom Image" class="w-32 h-32 mx-auto rounded-full border-4 border-purple-300 wobble">
+        </div>
+
+        <div class="bg-white bg-opacity-80 p-6 rounded-lg shadow-lg max-w-md mx-auto">
+            <p class="text-lg text-gray-800 mb-4">Amy, you're as adorable and cheerful as Chiikawa and friends! May your birthday be filled with sweet moments and endless fun! ✨</p>
+            <button onclick="playSong()" class="fancy-button">Play | Happy Birthday! </button>
+            <audio id="birthdaySong" src="birthday_song.mp3"></audio>
+        </div>
+
+        <div class="mt-8 mb-8">
+            <video src="cc.mp4" controls width="320" class="mx-auto"></video>
+        </div>
+    </div>
+
+    <script>
+        // Confetti effect
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.width = Math.random() * 8 + 8 + 'px';
+                confetti.style.height = confetti.style.width;
+                confetti.style.animationDelay = Math.random() * 4 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 4) + 's';
+                confetti.style.opacity = 0; // Start fully transparent
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 6000);
+            }
+        }
+        setInterval(createConfetti, 1000);
+
+        // Play the default birthday song
+        function playSong() {
+            const audio = document.getElementById('birthdaySong');
+            audio.src = 'h.mp4'; // Ensure default song
+            audio.play().catch(error => {
+                console.error('Error playing audio:', error);
+            });
+        }
+
+        // Create stars in the background
+        function createStars() {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                document.body.appendChild(star);
+            }
+        }
+        createStars();
+
+        
+    </script>
+</body>
+</html>
